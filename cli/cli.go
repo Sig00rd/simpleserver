@@ -22,7 +22,7 @@ type CLI struct {
 }
 
 func (c *CLI) Parse(args []string) error {
-	if len(args) <= 1 {
+	if len(args) == 1 {
 		return fmt.Errorf(NO_SUBCOMMAND_MESSAGE)
 	}
 
@@ -48,7 +48,7 @@ func (c *CLI) Parse(args []string) error {
 		return fmt.Errorf(INVALID_SUBCOMMAND_MESSAGE)
 	}
 
-	return fmt.Errorf("Encountered an error while parsing user input")
+	return nil
 }
 
 func (c *CLI) run(filePath string) error {
