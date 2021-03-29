@@ -1,6 +1,11 @@
 package cli
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/sig00rd/simpleserver/file"
+	"github.com/sig00rd/simpleserver/server"
+)
 
 const VERSION_COMMAND = "version"
 const HELP_COMMAND = "help"
@@ -13,6 +18,7 @@ const INVALID_RUN_COMMAND_MESSAGE = "Expected both --file flag and a file path, 
 const VERSION = "v1.0.0"
 
 type CLI struct {
+	Server server.Server
 }
 
 func (c *CLI) Parse(args []string) error {
@@ -28,20 +34,30 @@ func (c *CLI) Parse(args []string) error {
 		help(args[0])
 
 	case RUN_COMMAND:
-		if len(args) < 4 || args[2] != "file" {
+		if len(args) < 4 || args[2] != "--file" {
 			return fmt.Errorf(INVALID_RUN_COMMAND_MESSAGE)
 		}
 
-		err := run(args[3])
+		err := c.run(args[3])
 		if err != nil {
 			return err
 		}
+		return nil
 
 	default:
 		return fmt.Errorf(INVALID_SUBCOMMAND_MESSAGE)
 	}
 
 	return fmt.Errorf("Encountered an error while parsing user input")
+}
+
+func (c *CLI) run(filePath string) error {
+	err := file.InspectFile(filePath)
+	if err != nil {
+		return fmt.Errorf("Encountered an error while trying to fetch the file:\n %s", err)
+	}
+
+	return c.Server.Serve(filePath)
 }
 
 func version() {
@@ -56,8 +72,4 @@ func help(app string) {
 			"  %s help to display help\n"+
 			"  %s run --file <path> to start HTTP server", app, app, app)
 	fmt.Println(message)
-}
-
-func run(filePath string) error {
-	return nil
 }
