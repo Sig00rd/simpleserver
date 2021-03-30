@@ -15,7 +15,7 @@ const NO_SUBCOMMAND_MESSAGE = "Expected a subcommand"
 const INVALID_SUBCOMMAND_MESSAGE = "Expected 'run', 'version' or 'help' subcommand"
 const INVALID_RUN_COMMAND_MESSAGE = "Expected both --file flag and a file path, refer to help or readme"
 
-const VERSION = "v1.0.0"
+const VERSION = "v1.0.1"
 
 type CLI struct {
 	Server server.Server
