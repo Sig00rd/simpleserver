@@ -15,7 +15,7 @@ const NO_SUBCOMMAND_MESSAGE = "Expected a subcommand"
 const INVALID_SUBCOMMAND_MESSAGE = "Expected 'run', 'version' or 'help' subcommand"
 const INVALID_RUN_COMMAND_MESSAGE = "Expected both --file flag and a file path, refer to help or readme"
 
-const VERSION = "v1.0.1"
+const VERSION = "v1.0.2"
 
 type CLI struct {
 	Server server.Server
@@ -70,6 +70,6 @@ func help(app string) {
 			"Usage:\n"+
 			"  %s version to display app version\n"+
 			"  %s help to display help\n"+
-			"  %s run --file <path> to start HTTP server", app, app, app)
+			"  %s run --file <path> to start HTTP server serving file found under <path>, by default on port 8080", app, app, app)
 	fmt.Println(message)
 }

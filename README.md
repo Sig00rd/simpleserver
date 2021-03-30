@@ -30,3 +30,7 @@ With app built:
 `./simpleserver help` to display help
 
 `./simpleserver run --file <path>` to start HTTP server serving html file found under specified path
+
+## Accessing served file
+
+By default, the specified file is being served on port 8080

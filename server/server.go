@@ -16,11 +16,11 @@ type NormalServer struct{}
 func (ns *NormalServer) Serve(filePath string) error {
 	http.HandleFunc("/", serveFileFromPath(filePath))
 
+	fmt.Printf("Listening on port %s\n", PORT)
 	err := http.ListenAndServe(PORT, nil)
 	if err != nil {
 		return err
 	}
-	fmt.Printf("Listening on port %s\n", PORT)
 	return nil
 }
 
